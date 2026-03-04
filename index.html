@@ -76,6 +76,12 @@ padding:15px;
 border-radius:10px;
 margin-bottom:10px;
 box-shadow:0 2px 6px rgba(0,0,0,0.05);
+cursor:pointer;
+}
+
+.movimientos{
+display:none;
+margin-top:10px;
 }
 
 </style>
@@ -86,7 +92,7 @@ box-shadow:0 2px 6px rgba(0,0,0,0.05);
 
 <header>
 
-<img src="logo.jpg">
+<img src="logotipo.jpg">
 
 <h1>Paredes Textil</h1>
 
@@ -117,51 +123,16 @@ box-shadow:0 2px 6px rgba(0,0,0,0.05);
 
 </table>
 
-
 <h2>Cuentas Corrientes</h2>
 
 <div id="clientes"></div>
 
 </div>
 
+<script src="stock.js"></script>
+<script src="cc.js"></script>
+
 <script>
-
-let stock = [
-
-{articulo:"CALCERO FRIZADO BLANCO",bacacay:0,deposito:1952.10},
-{articulo:"CALCERO FRIZADO NEGRO",bacacay:0,deposito:5497.30},
-{articulo:"CALCERO FRIZADO AZUL",bacacay:0,deposito:1915.80},
-
-{articulo:"DARLON GLITTER CORAZON NEGRO",bacacay:67.40,deposito:135.10},
-{articulo:"DARLON GLITTER CORAZON CELO",bacacay:74.70,deposito:131.30},
-
-{articulo:"DARLON GLITTER ESTRELLA BLACK",bacacay:75.30,deposito:1012.90},
-{articulo:"DARLON GLITTER ESTRELLA CELO",bacacay:76.80,deposito:482.50},
-
-{articulo:"DARLON LISO NEGRO",bacacay:134.70,deposito:3064.50},
-{articulo:"DARLON LISO BEIGE",bacacay:97.60,deposito:861.40},
-
-{articulo:"MODAL HAWAI NEGRO",bacacay:74.80,deposito:844.10},
-{articulo:"MODAL HAWAI BLANCO",bacacay:65.10,deposito:433.40},
-
-{articulo:"MODAL SOFT BLANCO",bacacay:73.30,deposito:1952.10},
-{articulo:"MODAL SOFT NEGRO",bacacay:141.80,deposito:566.60},
-
-{articulo:"MORLEY PRINT ANIMAL NEGRO",bacacay:107.20,deposito:107.20},
-
-{articulo:"MORLEY SOFT NEGRO",bacacay:22.10,deposito:1049.60},
-
-{articulo:"PLUSH DOBLE NEGRO",bacacay:75.10,deposito:953.10},
-{articulo:"PLUSH DOBLE BEIGE",bacacay:63.40,deposito:1569.50},
-
-{articulo:"PLUSH HAWAI NEGRO",bacacay:23.40,deposito:230.70},
-{articulo:"PLUSH HAWAI CHOCOLATE",bacacay:14.20,deposito:309.50},
-
-{articulo:"PLUSH LUMINOSO ESTRELLA",bacacay:41.90,deposito:738.40},
-
-{articulo:"SARAH KEY ROSA",bacacay:59.50,deposito:0}
-
-];
 
 function renderStock(){
 
@@ -197,8 +168,6 @@ body.innerHTML+=`
 
 }
 
-renderStock()
-
 function buscar(){
 
 let v=document.getElementById("buscar").value.toLowerCase()
@@ -214,27 +183,28 @@ r.style.display="none"
 
 }
 
-let clientes=[
-
-{nombre:"PEDRO Y CELIA LOCAL",ars:10825770,usd:0},
-{nombre:"MARIANA PACHECO",ars:929700,usd:0},
-{nombre:"MARCELO GUSMAN",ars:45366490,usd:0},
-{nombre:"ROGER ZITANA",ars:0,usd:11599}
-
-]
+function renderClientes(){
 
 let cont=document.getElementById("clientes")
 
-clientes.forEach(c=>{
+cont.innerHTML=""
+
+cuentas.forEach((c,i)=>{
 
 cont.innerHTML+=`
 
-<div class="card">
+<div class="card" onclick="toggleMov(${i})">
 
-<b>${c.nombre}</b><br>
+<b>${c.cliente}</b><br>
 
 ARS: ${c.ars.toLocaleString()}<br>
 USD: ${c.usd.toLocaleString()}
+
+<div class="movimientos" id="mov${i}">
+
+<button onclick="agregarPago(${i})">Agregar pago</button>
+
+</div>
 
 </div>
 
@@ -242,7 +212,34 @@ USD: ${c.usd.toLocaleString()}
 
 })
 
+}
+
+function toggleMov(i){
+
+let el=document.getElementById("mov"+i)
+
+el.style.display = el.style.display==="block" ? "none" : "block"
+
+}
+
+function agregarPago(i){
+
+let monto=prompt("Monto del pago")
+
+if(!monto)return
+
+cuentas[i].ars -= parseFloat(monto)
+
+renderClientes()
+
+}
+
+renderStock()
+renderClientes()
+
 </script>
 
 </body>
 </html>
+
+
