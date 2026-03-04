@@ -1,114 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<title>Paredes Textil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Paredes Textil</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#0e1320;
-color:white;
+background:#f4f6fb;
 margin:0;
 }
 
 header{
-background:#1146a8;
+background:white;
 padding:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
 display:flex;
 align-items:center;
-gap:20px;
+gap:15px;
 }
 
 header img{
 height:50px;
-border-radius:10px;
 }
 
 .container{
-padding:20px;
+padding:25px;
 }
 
 h2{
-margin-top:40px;
+margin-top:30px;
 }
 
 table{
 width:100%;
+background:white;
 border-collapse:collapse;
-margin-top:10px;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
 th,td{
-padding:8px;
-border-bottom:1px solid #333;
-text-align:left;
+padding:10px;
+border-bottom:1px solid #eee;
 }
 
 input{
 width:100%;
-background:#1c2238;
-border:none;
-color:white;
+border:1px solid #ddd;
+border-radius:6px;
 padding:6px;
-border-radius:4px;
 }
 
 .total{
 font-weight:bold;
-color:#6fffc2;
-}
-
-button{
-background:#1146a8;
-color:white;
-border:none;
-padding:8px 12px;
-border-radius:6px;
-cursor:pointer;
-}
-
-button:hover{
-background:#1f5cd6;
+color:#0a9d63;
 }
 
 .search{
-margin-top:20px;
 margin-bottom:10px;
+padding:8px;
+width:250px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-bottom:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
+
 <img src="logo.jpg">
+
 <h1>Paredes Textil</h1>
+
 </header>
 
 <div class="container">
 
 <h2>Stock</h2>
 
-<input class="search" id="buscar" placeholder="Buscar tela o color">
+<input id="buscar" class="search" placeholder="Buscar tela..." onkeyup="buscar()">
 
 <table id="tablaStock">
+
 <thead>
+
 <tr>
+
 <th>Artículo</th>
-<th>Color</th>
 <th>Bacacay</th>
 <th>Depósito</th>
 <th>Total</th>
+
 </tr>
+
 </thead>
 
-<tbody id="stockBody">
-</tbody>
+<tbody id="stockBody"></tbody>
+
 </table>
+
 
 <h2>Cuentas Corrientes</h2>
 
@@ -120,31 +128,56 @@ margin-bottom:10px;
 
 let stock = [
 
-{articulo:"CALCERO FRIZADO",color:"BLANCO",bacacay:0,deposito:1952},
-{articulo:"CALCERO FRIZADO",color:"NEGRO",bacacay:0,deposito:5497},
-{articulo:"CALCERO FRIZADO",color:"AZUL",bacacay:0,deposito:1915},
+{articulo:"CALCERO FRIZADO BLANCO",bacacay:0,deposito:1952.10},
+{articulo:"CALCERO FRIZADO NEGRO",bacacay:0,deposito:5497.30},
+{articulo:"CALCERO FRIZADO AZUL",bacacay:0,deposito:1915.80},
 
-{articulo:"DARLON GLITTER",color:"CORAZON BEIGE",bacacay:351,deposito:0},
-{articulo:"DARLON GLITTER",color:"CORAZON NEGRO",bacacay:832,deposito:0},
+{articulo:"DARLON GLITTER CORAZON NEGRO",bacacay:67.40,deposito:135.10},
+{articulo:"DARLON GLITTER CORAZON CELO",bacacay:74.70,deposito:131.30},
 
-{articulo:"DARLON LUMINOSO",color:"ESTRELLA CELESTE",bacacay:925,deposito:0}
+{articulo:"DARLON GLITTER ESTRELLA BLACK",bacacay:75.30,deposito:1012.90},
+{articulo:"DARLON GLITTER ESTRELLA CELO",bacacay:76.80,deposito:482.50},
 
-]
+{articulo:"DARLON LISO NEGRO",bacacay:134.70,deposito:3064.50},
+{articulo:"DARLON LISO BEIGE",bacacay:97.60,deposito:861.40},
+
+{articulo:"MODAL HAWAI NEGRO",bacacay:74.80,deposito:844.10},
+{articulo:"MODAL HAWAI BLANCO",bacacay:65.10,deposito:433.40},
+
+{articulo:"MODAL SOFT BLANCO",bacacay:73.30,deposito:1952.10},
+{articulo:"MODAL SOFT NEGRO",bacacay:141.80,deposito:566.60},
+
+{articulo:"MORLEY PRINT ANIMAL NEGRO",bacacay:107.20,deposito:107.20},
+
+{articulo:"MORLEY SOFT NEGRO",bacacay:22.10,deposito:1049.60},
+
+{articulo:"PLUSH DOBLE NEGRO",bacacay:75.10,deposito:953.10},
+{articulo:"PLUSH DOBLE BEIGE",bacacay:63.40,deposito:1569.50},
+
+{articulo:"PLUSH HAWAI NEGRO",bacacay:23.40,deposito:230.70},
+{articulo:"PLUSH HAWAI CHOCOLATE",bacacay:14.20,deposito:309.50},
+
+{articulo:"PLUSH LUMINOSO ESTRELLA",bacacay:41.90,deposito:738.40},
+
+{articulo:"SARAH KEY ROSA",bacacay:59.50,deposito:0}
+
+];
 
 function renderStock(){
 
 let body=document.getElementById("stockBody")
+
 body.innerHTML=""
 
 stock.forEach((s,i)=>{
 
-let total=s.bacacay+s.deposito
+let total=(s.bacacay+s.deposito).toFixed(2)
 
 body.innerHTML+=`
-<tr>
-<td>${s.articulo}</td>
 
-<td>${s.color}</td>
+<tr>
+
+<td>${s.articulo}</td>
 
 <td>
 <input value="${s.bacacay}" onchange="stock[${i}].bacacay=parseFloat(this.value);renderStock()">
@@ -157,6 +190,7 @@ body.innerHTML+=`
 <td class="total">${total}</td>
 
 </tr>
+
 `
 
 })
@@ -165,62 +199,9 @@ body.innerHTML+=`
 
 renderStock()
 
-let clientes = [
+function buscar(){
 
-{
-nombre:"PEDRO Y CELIA LOCAL",
-ars:10825770,
-usd:0
-},
-
-{
-nombre:"MARIANA PACHECO",
-ars:929700,
-usd:0
-},
-
-{
-nombre:"MARCELO GUSMAN",
-ars:45366490,
-usd:0
-},
-
-{
-nombre:"ROGER ZITANA",
-ars:0,
-usd:11599
-}
-
-]
-
-function renderClientes(){
-
-let cont=document.getElementById("clientes")
-
-clientes.forEach(c=>{
-
-cont.innerHTML+=`
-
-<div style="background:#1c2238;padding:10px;margin-bottom:10px;border-radius:8px">
-
-<b>${c.nombre}</b><br>
-
-ARS: ${c.ars.toLocaleString()}<br>
-USD: ${c.usd.toLocaleString()}
-
-</div>
-
-`
-
-})
-
-}
-
-renderClientes()
-
-document.getElementById("buscar").addEventListener("input",function(){
-
-let v=this.value.toLowerCase()
+let v=document.getElementById("buscar").value.toLowerCase()
 
 document.querySelectorAll("#tablaStock tbody tr").forEach(r=>{
 
@@ -230,6 +211,34 @@ else
 r.style.display="none"
 
 })
+
+}
+
+let clientes=[
+
+{nombre:"PEDRO Y CELIA LOCAL",ars:10825770,usd:0},
+{nombre:"MARIANA PACHECO",ars:929700,usd:0},
+{nombre:"MARCELO GUSMAN",ars:45366490,usd:0},
+{nombre:"ROGER ZITANA",ars:0,usd:11599}
+
+]
+
+let cont=document.getElementById("clientes")
+
+clientes.forEach(c=>{
+
+cont.innerHTML+=`
+
+<div class="card">
+
+<b>${c.nombre}</b><br>
+
+ARS: ${c.ars.toLocaleString()}<br>
+USD: ${c.usd.toLocaleString()}
+
+</div>
+
+`
 
 })
 
