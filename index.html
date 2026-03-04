@@ -1,832 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paredes Textil</title>
+<meta charset="UTF-8">
+<title>Paredes Textil</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fuente (si tenés internet al abrir el archivo) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
 
-  <style>
-    :root{
-      --bg:#0b1020;
-      --panel:#0f1730;
-      --panel2:#101b36;
-      --card:#0e1a33;
-      --text:#e8edff;
-      --muted:#9fb0ff;
-      --line:rgba(255,255,255,.08);
-      --accent:#19f0c2;
-      --accent2:#7c5cff;
-      --danger:#ff4d6d;
-      --warn:#ffcd38;
-      --ok:#2bd576;
-      --shadow: 0 14px 40px rgba(0,0,0,.35);
-      --radius: 18px;
-    }
+body{
+font-family:Arial;
+background:#0e1320;
+color:white;
+margin:0;
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1000px 700px at 20% 10%, rgba(124,92,255,.22), transparent 60%),
-                  radial-gradient(900px 600px at 80% 20%, rgba(25,240,194,.18), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      min-height:100vh;
-    }
+header{
+background:#1146a8;
+padding:20px;
+display:flex;
+align-items:center;
+gap:20px;
+}
 
-    .app{
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 22px;
-    }
+header img{
+height:50px;
+border-radius:10px;
+}
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding: 18px 18px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      box-shadow: var(--shadow);
-    }
+.container{
+padding:20px;
+}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .logo{
-      width:40px;height:40px;border-radius:14px;
-      background: linear-gradient(135deg, var(--accent2), var(--accent));
-      box-shadow: 0 12px 30px rgba(25,240,194,.14);
-    }
-    .title{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1;
-    }
-    .title strong{font-size:18px}
-    .title span{font-size:12px; color:var(--muted)}
+h2{
+margin-top:40px;
+}
 
-    .tabs{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .tab{
-      padding:10px 14px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      color: var(--text);
-      cursor:pointer;
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-    .tab.active{
-      border-color: rgba(25,240,194,.35);
-      box-shadow: 0 0 0 4px rgba(25,240,194,.10);
-    }
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
 
-    .content{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap:16px;
-    }
+th,td{
+padding:8px;
+border-bottom:1px solid #333;
+text-align:left;
+}
 
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
+input{
+width:100%;
+background:#1c2238;
+border:none;
+color:white;
+padding:6px;
+border-radius:4px;
+}
 
-    .cardHeader{
-      padding:16px 16px 10px 16px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(0,0,0,.12);
-    }
-    .cardHeader h2{
-      margin:0;
-      font-size: 15px;
-      letter-spacing:.2px;
-    }
-    .cardHeader p{
-      margin:6px 0 0 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
+.total{
+font-weight:bold;
+color:#6fffc2;
+}
 
-    .tools{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
+button{
+background:#1146a8;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:6px;
+cursor:pointer;
+}
 
-    .input, .select{
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      color: var(--text);
-      outline:none;
-      min-width: 220px;
-    }
-    .input::placeholder{color: rgba(232,237,255,.45)}
-    .select{min-width: 200px}
+button:hover{
+background:#1f5cd6;
+}
 
-    .btn{
-      padding:10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      color: var(--text);
-      cursor:pointer;
-      font-weight:800;
-    }
-    .btn.primary{
-      border-color: rgba(25,240,194,.35);
-      background: rgba(25,240,194,.12);
-    }
-    .btn.danger{
-      border-color: rgba(255,77,109,.35);
-      background: rgba(255,77,109,.10);
-    }
+.search{
+margin-top:20px;
+margin-bottom:10px;
+}
 
-    .gridPad{ padding: 14px; }
-
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-    }
-    th, td{
-      padding:10px 10px;
-      border-bottom:1px solid var(--line);
-      font-size: 12.5px;
-      vertical-align:middle;
-    }
-    th{
-      text-align:left;
-      color: rgba(232,237,255,.85);
-      font-size: 12px;
-      letter-spacing:.25px;
-      background: rgba(0,0,0,.10);
-      position:sticky;
-      top:0;
-      z-index:1;
-    }
-
-    .cellInput{
-      width:100%;
-      padding:8px 10px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      color: var(--text);
-      outline:none;
-      font-weight:600;
-    }
-    .cellInput.num{
-      text-align:right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .dot{width:8px;height:8px;border-radius:99px;background: var(--accent)}
-
-    .muted{color: var(--muted)}
-    .right{ text-align:right }
-    .rowActions{
-      display:flex;
-      justify-content:flex-end;
-      gap:8px;
-    }
-
-    .splitCard{
-      display:flex;
-      flex-direction:column;
-      min-height: 520px;
-    }
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .item{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      border-radius: 16px;
-      padding: 12px;
-      cursor:pointer;
-    }
-    .item:hover{ box-shadow: 0 0 0 4px rgba(124,92,255,.12); }
-    .itemTop{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
-    }
-    .itemTop strong{font-size:13px}
-    .mini{
-      font-size: 12px;
-      color: var(--muted);
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-
-    .badge{
-      padding:6px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      font-size: 12px;
-      font-weight:800;
-      font-variant-numeric: tabular-nums;
-    }
-    .badge.ars{ border-color: rgba(25,240,194,.30); background: rgba(25,240,194,.10); }
-    .badge.usd{ border-color: rgba(124,92,255,.35); background: rgba(124,92,255,.12); }
-
-    .detail{
-      border-top: 1px solid var(--line);
-      padding: 14px;
-      display:none;
-    }
-    .detail.show{ display:block; }
-
-    .twoCols{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-bottom: 10px;
-    }
-
-    .kpi{
-      border:1px solid var(--line);
-      border-radius: 16px;
-      padding: 12px;
-      background: rgba(255,255,255,.02);
-    }
-    .kpi span{ display:block; font-size: 12px; color: var(--muted); }
-    .kpi strong{ display:block; margin-top:6px; font-size: 18px; font-variant-numeric: tabular-nums; }
-
-    .footerNote{
-      margin-top: 12px;
-      font-size: 12px;
-      color: rgba(232,237,255,.55);
-    }
-
-    @media (max-width: 980px){
-      .content{ grid-template-columns: 1fr; }
-      .input{ min-width: 160px; }
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <div class="app">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo"></div>
-        <div class="title">
-          <strong>Paredes Textil</strong>
-          <span>Stock y Cuentas Corrientes</span>
-        </div>
-      </div>
 
-      <div class="tabs">
-        <button class="tab active" id="tabStock" onclick="showView('stock')">Stock</button>
-        <button class="tab" id="tabCC" onclick="showView('cc')">Cuentas corrientes</button>
-      </div>
-    </div>
+<header>
+<img src="logo.jpg">
+<h1>Paredes Textil</h1>
+</header>
 
-    <div class="content">
-      <!-- IZQUIERDA -->
-      <div class="card">
-        <div class="cardHeader">
-          <div>
-            <h2 id="mainTitle">Stock</h2>
-            <p id="mainSub">Editable. Se guarda solo.</p>
-          </div>
-          <div class="tools" id="mainTools">
-            <!-- tools dinámicos -->
-          </div>
-        </div>
+<div class="container">
 
-        <div class="gridPad" id="mainBody">
-          <!-- body dinámico -->
-        </div>
-      </div>
+<h2>Stock</h2>
 
-      <!-- DERECHA -->
-      <div class="card splitCard">
-        <div class="cardHeader">
-          <div>
-            <h2>Estado</h2>
-            <p>Guardado local en esta compu.</p>
-          </div>
-          <div class="tools">
-            <div class="pill"><span class="dot"></span><span id="saveState">Guardado</span></div>
-            <button class="btn danger" onclick="resetAll()">Reset</button>
-          </div>
-        </div>
+<input class="search" id="buscar" placeholder="Buscar tela o color">
 
-        <div class="gridPad">
-          <div class="kpi">
-            <span>Dato</span>
-            <strong id="kpi1">Listo</strong>
-          </div>
-          <div class="footerNote">
-            Si cerrás la pestaña, igual queda guardado en esta compu.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<table id="tablaStock">
+<thead>
+<tr>
+<th>Artículo</th>
+<th>Color</th>
+<th>Bacacay</th>
+<th>Depósito</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody id="stockBody">
+</tbody>
+</table>
+
+<h2>Cuentas Corrientes</h2>
+
+<div id="clientes"></div>
+
+</div>
 
 <script>
-  // ====== Storage ======
-  const LS_KEY = "paredes_textil_v3";
-  const state = loadState();
 
-  function loadState(){
-    try{
-      const raw = localStorage.getItem(LS_KEY);
-      if(raw) return JSON.parse(raw);
-    }catch(e){}
-    // Default demo data
-    return {
-      stock: [
-        { articulo:"Darlon Rib", color:"Negro", bacacay:120, deposito:300 },
-        { articulo:"Darlon Rib", color:"Azul", bacacay:80, deposito:150 },
-        { articulo:"Plush Doble", color:"Gris", bacacay:60, deposito:200 },
-      ],
-      cc: [
-        {
-          id: uid(),
-          cliente:"Juan Textil",
-          movimientos: [
-            { fecha:"2026-03-01", tipo:"cargo", moneda:"ARS", monto: 450000, nota:"Compra" },
-            { fecha:"2026-03-02", tipo:"pago",  moneda:"ARS", monto: 100000, nota:"Transferencia" }
-          ]
-        },
-        {
-          id: uid(),
-          cliente:"Telas SRL",
-          movimientos: [
-            { fecha:"2026-02-28", tipo:"cargo", moneda:"USD", monto: 1200, nota:"Compra" },
-            { fecha:"2026-03-03", tipo:"pago",  moneda:"USD", monto: 200, nota:"Efectivo" }
-          ]
-        }
-      ],
-      selectedClientId: null
-    };
-  }
+let stock = [
 
-  function saveState(){
-    try{
-      localStorage.setItem(LS_KEY, JSON.stringify(state));
-      setSaved(true);
-    }catch(e){
-      setSaved(false, "No se pudo guardar");
-    }
-  }
+{articulo:"CALCERO FRIZADO",color:"BLANCO",bacacay:0,deposito:1952},
+{articulo:"CALCERO FRIZADO",color:"NEGRO",bacacay:0,deposito:5497},
+{articulo:"CALCERO FRIZADO",color:"AZUL",bacacay:0,deposito:1915},
 
-  let saveTimer = null;
-  function autosave(){
-    setSaved(false, "Guardando...");
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(()=>{ saveState(); }, 200);
-  }
+{articulo:"DARLON GLITTER",color:"CORAZON BEIGE",bacacay:351,deposito:0},
+{articulo:"DARLON GLITTER",color:"CORAZON NEGRO",bacacay:832,deposito:0},
 
-  function setSaved(ok, msg){
-    const el = document.getElementById("saveState");
-    if(msg){ el.textContent = msg; return; }
-    el.textContent = ok ? "Guardado" : "Guardando...";
-  }
+{articulo:"DARLON LUMINOSO",color:"ESTRELLA CELESTE",bacacay:925,deposito:0}
 
-  function uid(){
-    return Math.random().toString(16).slice(2) + Date.now().toString(16);
-  }
+]
 
-  function money(n){
-    const x = Number(n || 0);
-    return x.toLocaleString("es-AR");
-  }
+function renderStock(){
 
-  function num(x){
-    const v = Number(String(x).replace(",", "."));
-    return Number.isFinite(v) ? v : 0;
-  }
+let body=document.getElementById("stockBody")
+body.innerHTML=""
 
-  // ====== Views ======
-  let view = "stock";
+stock.forEach((s,i)=>{
 
-  function showView(next){
-    view = next;
-    document.getElementById("tabStock").classList.toggle("active", view==="stock");
-    document.getElementById("tabCC").classList.toggle("active", view==="cc");
+let total=s.bacacay+s.deposito
 
-    if(view==="stock"){
-      document.getElementById("mainTitle").textContent = "Stock";
-      document.getElementById("mainSub").textContent = "Editable. Se guarda solo.";
-      renderStock();
-      document.getElementById("kpi1").textContent = "Stock activo";
-    }else{
-      document.getElementById("mainTitle").textContent = "Cuentas corrientes";
-      document.getElementById("mainSub").textContent = "Click en un cliente para ver el estado.";
-      renderCC();
-      document.getElementById("kpi1").textContent = "CC activo";
-    }
-  }
+body.innerHTML+=`
+<tr>
+<td>${s.articulo}</td>
 
-  // ====== STOCK ======
-  function renderStock(){
-    const tools = document.getElementById("mainTools");
-    tools.innerHTML = `
-      <input class="input" id="stockSearch" placeholder="Buscar artículo o color" oninput="renderStockTable()" />
-      <button class="btn primary" onclick="addStockRow()">+ Agregar</button>
-    `;
+<td>${s.color}</td>
 
-    const body = document.getElementById("mainBody");
-    body.innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th style="width:26%">Artículo</th>
-            <th style="width:18%">Color</th>
-            <th class="right" style="width:14%">Bacacay (KG)</th>
-            <th class="right" style="width:14%">Depósito (KG)</th>
-            <th class="right" style="width:12%">Total</th>
-            <th style="width:16%"></th>
-          </tr>
-        </thead>
-        <tbody id="stockTbody"></tbody>
-      </table>
-      <div class="footerNote">Tip: editá cualquier celda. Guarda solo.</div>
-    `;
-    renderStockTable();
-  }
+<td>
+<input value="${s.bacacay}" onchange="stock[${i}].bacacay=parseFloat(this.value);renderStock()">
+</td>
 
-  function renderStockTable(){
-    const q = (document.getElementById("stockSearch")?.value || "").trim().toLowerCase();
-    const tbody = document.getElementById("stockTbody");
-    let rows = "";
+<td>
+<input value="${s.deposito}" onchange="stock[${i}].deposito=parseFloat(this.value);renderStock()">
+</td>
 
-    state.stock.forEach((r, idx)=>{
-      const text = (r.articulo + " " + r.color).toLowerCase();
-      if(q && !text.includes(q)) return;
+<td class="total">${total}</td>
 
-      const total = num(r.bacacay) + num(r.deposito);
+</tr>
+`
 
-      rows += `
-        <tr>
-          <td><input class="cellInput" value="${escapeHtml(r.articulo)}" oninput="updateStock(${idx}, 'articulo', this.value)" /></td>
-          <td><input class="cellInput" value="${escapeHtml(r.color)}" oninput="updateStock(${idx}, 'color', this.value)" /></td>
-          <td class="right"><input class="cellInput num" value="${num(r.bacacay)}" oninput="updateStock(${idx}, 'bacacay', this.value)" /></td>
-          <td class="right"><input class="cellInput num" value="${num(r.deposito)}" oninput="updateStock(${idx}, 'deposito', this.value)" /></td>
-          <td class="right"><span class="badge ars">${total}</span></td>
-          <td>
-            <div class="rowActions">
-              <button class="btn" onclick="moveStock(${idx}, 'deposito', 'bacacay')">Dep → Bac</button>
-              <button class="btn" onclick="moveStock(${idx}, 'bacacay', 'deposito')">Bac → Dep</button>
-              <button class="btn danger" onclick="deleteStockRow(${idx})">Borrar</button>
-            </div>
-          </td>
-        </tr>
-      `;
-    });
+})
 
-    tbody.innerHTML = rows || `
-      <tr><td colspan="6" class="muted">No hay resultados.</td></tr>
-    `;
-  }
+}
 
-  function addStockRow(){
-    state.stock.unshift({ articulo:"", color:"", bacacay:0, deposito:0 });
-    autosave();
-    renderStockTable();
-  }
+renderStock()
 
-  function deleteStockRow(idx){
-    state.stock.splice(idx, 1);
-    autosave();
-    renderStockTable();
-  }
+let clientes = [
 
-  function updateStock(idx, field, value){
-    if(field==="bacacay" || field==="deposito"){
-      state.stock[idx][field] = num(value);
-    }else{
-      state.stock[idx][field] = value;
-    }
-    autosave();
-    renderStockTable();
-  }
+{
+nombre:"PEDRO Y CELIA LOCAL",
+ars:10825770,
+usd:0
+},
 
-  function moveStock(idx, from, to){
-    const amount = prompt("¿Cuántos KG movés?");
-    if(amount===null) return;
-    const a = num(amount);
-    if(a <= 0) return;
+{
+nombre:"MARIANA PACHECO",
+ars:929700,
+usd:0
+},
 
-    const fromVal = num(state.stock[idx][from]);
-    if(a > fromVal){
-      alert("No alcanza stock en " + (from==="bacacay" ? "Bacacay" : "Depósito"));
-      return;
-    }
-    state.stock[idx][from] = fromVal - a;
-    state.stock[idx][to] = num(state.stock[idx][to]) + a;
-    autosave();
-    renderStockTable();
-  }
+{
+nombre:"MARCELO GUSMAN",
+ars:45366490,
+usd:0
+},
 
-  // ====== CUENTAS CORRIENTES ======
-  function renderCC(){
-    const tools = document.getElementById("mainTools");
-    tools.innerHTML = `
-      <input class="input" id="ccSearch" placeholder="Buscar cliente" oninput="renderCCList()" />
-      <button class="btn primary" onclick="addClient()">+ Cliente</button>
-    `;
+{
+nombre:"ROGER ZITANA",
+ars:0,
+usd:11599
+}
 
-    const body = document.getElementById("mainBody");
-    body.innerHTML = `
-      <div class="twoCols">
-        <div class="card" style="box-shadow:none; background:transparent; border:none;">
-          <div class="list" id="ccList"></div>
-        </div>
-        <div class="card" style="box-shadow:none; background:transparent; border:none;">
-          <div class="detail" id="ccDetail"></div>
-        </div>
-      </div>
-      <div class="footerNote">Cargos suman. Pagos restan.</div>
-    `;
-    renderCCList();
-    renderCCDetail();
-  }
+]
 
-  function calcBalances(cliente){
-    let ars = 0;
-    let usd = 0;
-    (cliente.movimientos || []).forEach(m=>{
-      const sign = (m.tipo === "cargo") ? 1 : -1;
-      if(m.moneda === "ARS") ars += sign * num(m.monto);
-      if(m.moneda === "USD") usd += sign * num(m.monto);
-    });
-    return { ars, usd };
-  }
+function renderClientes(){
 
-  function renderCCList(){
-    const q = (document.getElementById("ccSearch")?.value || "").trim().toLowerCase();
-    const list = document.getElementById("ccList");
+let cont=document.getElementById("clientes")
 
-    let html = "";
-    state.cc.forEach(c=>{
-      if(q && !c.cliente.toLowerCase().includes(q)) return;
+clientes.forEach(c=>{
 
-      const b = calcBalances(c);
-      html += `
-        <div class="item" onclick="selectClient('${c.id}')">
-          <div class="itemTop">
-            <strong>${escapeHtml(c.cliente)}</strong>
-            <span class="muted">Abrir</span>
-          </div>
-          <div class="mini">
-            <span class="badge ars">ARS ${money(b.ars)}</span>
-            <span class="badge usd">USD ${money(b.usd)}</span>
-          </div>
-        </div>
-      `;
-    });
+cont.innerHTML+=`
 
-    list.innerHTML = html || `<div class="muted">No hay clientes.</div>`;
-  }
+<div style="background:#1c2238;padding:10px;margin-bottom:10px;border-radius:8px">
 
-  function selectClient(id){
-    state.selectedClientId = id;
-    autosave();
-    renderCCDetail();
-  }
+<b>${c.nombre}</b><br>
 
-  function getSelectedClient(){
-    return state.cc.find(x=>x.id === state.selectedClientId) || null;
-  }
+ARS: ${c.ars.toLocaleString()}<br>
+USD: ${c.usd.toLocaleString()}
 
-  function renderCCDetail(){
-    const detail = document.getElementById("ccDetail");
-    const c = getSelectedClient();
+</div>
 
-    if(!c){
-      detail.classList.add("show");
-      detail.innerHTML = `
-        <div class="kpi">
-          <span>Ficha</span>
-          <strong>Elegí un cliente</strong>
-        </div>
-        <div class="footerNote">Click en la lista de la izquierda.</div>
-      `;
-      return;
-    }
+`
 
-    const b = calcBalances(c);
+})
 
-    const movs = (c.movimientos || [])
-      .slice()
-      .sort((a,b)=> (a.fecha||"").localeCompare(b.fecha||""))
-      .map((m, idx)=>{
-        const sign = m.tipo === "cargo" ? "+" : "-";
-        const pill = m.tipo === "cargo" ? "badge ars" : "badge usd";
-        return `
-          <tr>
-            <td>${escapeHtml(m.fecha || "")}</td>
-            <td>${escapeHtml(m.tipo)}</td>
-            <td>${escapeHtml(m.moneda)}</td>
-            <td class="right">${sign} ${money(m.monto)}</td>
-            <td>${escapeHtml(m.nota || "")}</td>
-            <td class="right">
-              <button class="btn danger" onclick="deleteMove(${idx})">Borrar</button>
-            </td>
-          </tr>
-        `;
-      }).join("");
+}
 
-    detail.classList.add("show");
-    detail.innerHTML = `
-      <div class="kpi">
-        <span>Cliente</span>
-        <strong>
-          <input class="cellInput" value="${escapeHtml(c.cliente)}" oninput="renameClient(this.value)" />
-        </strong>
-      </div>
+renderClientes()
 
-      <div style="height:10px"></div>
+document.getElementById("buscar").addEventListener("input",function(){
 
-      <div class="twoCols">
-        <div class="kpi">
-          <span>Saldo ARS</span>
-          <strong>ARS ${money(b.ars)}</strong>
-        </div>
-        <div class="kpi">
-          <span>Saldo USD</span>
-          <strong>USD ${money(b.usd)}</strong>
-        </div>
-      </div>
+let v=this.value.toLowerCase()
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0;">
-        <button class="btn primary" onclick="newMove('cargo')">+ Cargo</button>
-        <button class="btn primary" onclick="newMove('pago')">+ Pago</button>
-        <button class="btn" onclick="sendWhatsAppState()">Enviar estado WhatsApp</button>
-        <button class="btn danger" onclick="deleteClient()">Borrar cliente</button>
-      </div>
+document.querySelectorAll("#tablaStock tbody tr").forEach(r=>{
 
-      <table>
-        <thead>
-          <tr>
-            <th style="width:14%">Fecha</th>
-            <th style="width:12%">Tipo</th>
-            <th style="width:10%">Moneda</th>
-            <th class="right" style="width:14%">Monto</th>
-            <th style="width:34%">Nota</th>
-            <th style="width:16%"></th>
-          </tr>
-        </thead>
-        <tbody>
-          ${movs || `<tr><td colspan="6" class="muted">Sin movimientos.</td></tr>`}
-        </tbody>
-      </table>
-    `;
-  }
+if(r.innerText.toLowerCase().includes(v))
+r.style.display=""
+else
+r.style.display="none"
 
-  function addClient(){
-    const name = prompt("Nombre del cliente");
-    if(!name) return;
-    const c = { id: uid(), cliente: name, movimientos: [] };
-    state.cc.unshift(c);
-    state.selectedClientId = c.id;
-    autosave();
-    renderCCList();
-    renderCCDetail();
-  }
+})
 
-  function renameClient(name){
-    const c = getSelectedClient();
-    if(!c) return;
-    c.cliente = name;
-    autosave();
-    renderCCList();
-  }
+})
 
-  function deleteClient(){
-    const c = getSelectedClient();
-    if(!c) return;
-    if(!confirm("¿Borrar cliente?")) return;
-    state.cc = state.cc.filter(x=>x.id !== c.id);
-    state.selectedClientId = null;
-    autosave();
-    renderCCList();
-    renderCCDetail();
-  }
-
-  function newMove(tipo){
-    const c = getSelectedClient();
-    if(!c) return;
-
-    const fecha = prompt("Fecha (YYYY-MM-DD)", new Date().toISOString().slice(0,10));
-    if(fecha===null) return;
-
-    const moneda = prompt("Moneda: ARS o USD", "ARS");
-    if(moneda===null) return;
-    const m = (moneda || "").trim().toUpperCase();
-    if(m !== "ARS" && m !== "USD"){
-      alert("Moneda inválida");
-      return;
-    }
-
-    const montoStr = prompt("Monto");
-    if(montoStr===null) return;
-    const monto = num(montoStr);
-    if(monto <= 0) return;
-
-    const nota = prompt("Nota (opcional)", "") || "";
-
-    c.movimientos.push({ fecha, tipo, moneda: m, monto, nota });
-    autosave();
-    renderCCList();
-    renderCCDetail();
-  }
-
-  function deleteMove(idx){
-    const c = getSelectedClient();
-    if(!c) return;
-    c.movimientos.splice(idx, 1);
-    autosave();
-    renderCCList();
-    renderCCDetail();
-  }
-
-  function sendWhatsAppState(){
-    const c = getSelectedClient();
-    if(!c) return;
-
-    const b = calcBalances(c);
-    const phone = "5491125211185"; // AR
-    const text =
-      "Paredes Textil - Estado de cuenta%0A" +
-      "Cliente: " + encodeURIComponent(c.cliente) + "%0A" +
-      "Saldo ARS: " + encodeURIComponent(money(b.ars)) + "%0A" +
-      "Saldo USD: " + encodeURIComponent(money(b.usd));
-
-    const url = "https://wa.me/" + phone + "?text=" + text;
-    window.open(url, "_blank");
-  }
-
-  // ====== Reset ======
-  function resetAll(){
-    if(!confirm("¿Resetear todo?")) return;
-    localStorage.removeItem(LS_KEY);
-    location.reload();
-  }
-
-  // ====== Utils ======
-  function escapeHtml(str){
-    return String(str ?? "")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
-  // Init
-  showView("stock");
 </script>
+
 </body>
 </html>
